@@ -23,7 +23,19 @@ CC Switch 风格 × DeepSeek Harness 用量统计插件（山海紫穹系列）�
 ### 方式一：插件命令（推荐）
 
 ```bash
-dsh plugin --profile web add dsh-shanhai-stats
+dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
+```
+
+> 锁定版本安装（更安全，推荐生产环境）：
+> ```bash
+> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.0.0
+> ```
+
+更新 / 卸载：
+
+```bash
+dsh plugin --profile web update github:cn-zhangpeng/dsh-shanhai-stats
+dsh plugin --profile web remove github:cn-zhangpeng/dsh-shanhai-stats
 ```
 
 ### 方式二：手动部署 / 本地调试
