@@ -1,6 +1,6 @@
 # dsh-shanhai-stats
 
-CC Switch 风格 × DeepSeek Harness 用量统计插件（山海紫穹系列）。
+DeepSeek Harness 用量统计插件（山海紫穹系列）。
 
 在 DSH 的设置 → 用量统计 中提供四个板块：
 
@@ -69,7 +69,7 @@ Client 半（浏览器 bundle，lib/client.js）
   → 徽章 / 柱状图 / 热力图 / 模型分组表
 ```
 
-折叠逻辑参考 [dsh-usage-stats](https://github.com/)（`foldEvent`/`addUsage`/`foldEvents`/`snapshot`），本插件在其基础上新增 `perModel`（按 provider×model）聚合维度，并去掉余额查询与别名管理，聚焦纯统计。
+按 provider × model 新增 `perModel` 聚合维度，聚焦纯用量统计。
 
 ## 数据口径说明
 
