@@ -1,0 +1,56 @@
+{
+  "name": "dsh-shanhai-stats",
+  "version": "1.0.0",
+  "description": "山海系列 DeepSeek Harness 用量统计插件：总量徽章、每日走势柱状图、GitHub 风格热力图、按模型/提供商分组明细",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml"
+  ],
+  "scripts": {
+    "test": "node test/host-test.mjs && node test/client-smoke.mjs"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "shanhai",
+    "usage",
+    "stats",
+    "heatmap",
+    "tokens",
+    "model"
+  ],
+  "author": {
+    "name": "山海紫穹",
+    "url": "https://github.com/cn-zhangpeng"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cn-zhangpeng/dsh-shanhai-stats.git"
+  },
+  "license": "MIT"
+}
