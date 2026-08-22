@@ -4,8 +4,8 @@ CC Switch 风格 × DeepSeek Harness 用量统计插件（山海紫穹系列）�
 
 在 DSH 的设置 → 用量统计 中提供四个板块：
 
-- **总量汇总徽章** — 总花费 Token、缓存命中率、总使用次数、模型用量、连续使用天数
-- **每日走势柱状图** — 按天展示输入 / 缓存命中 / 缓存写入 / 输出四段 Token 走势（可切 7 / 14 / 30 / 90 天）
+- **总量汇总徽章** — 总花费 Token、缓存命中率、总使用次数、模型用量、连续使用天数；默认进入页面即为「当天」视图
+- **每日走势柱状图** — 按天展示输入 / 缓存命中 / 缓存写入 / 输出四段 Token 走势（可切 当天 / 1 / 7 / 30 天）
 - **GitHub 风格热力图** — 近一年每日活动热度，支持按工作区筛选、悬停查看明细
 - **按模型 / 提供商分组明细表** — 每个提供商下各模型的 Token 用量、消息数、占比，支持折叠
 
@@ -28,14 +28,14 @@ dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
 
 > 锁定版本安装（更安全，推荐生产环境）：
 > ```bash
-> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.0.0
+> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.0
 > ```
 
 更新 / 卸载：
 
 ```bash
-dsh plugin --profile web update github:cn-zhangpeng/dsh-shanhai-stats
-dsh plugin --profile web remove github:cn-zhangpeng/dsh-shanhai-stats
+dsh plugin --profile web update dsh-shanhai-stats
+dsh plugin --profile web remove dsh-shanhai-stats
 ```
 
 ### 方式二：手动部署 / 本地调试
@@ -47,7 +47,7 @@ dsh plugin --profile web remove github:cn-zhangpeng/dsh-shanhai-stats
    pnpm dsh web --patch ./cordis.patch.yml
    ```
 
-3. 打开 DSH web 界面，在 设置 → 用量统计 查看；侧边栏底部的「今日用量」可点击弹出今日明细。
+3. 打开 DSH web 界面，在 设置 → 用量统计 查看；页面默认展示「当天」数据，也可切换 1 / 7 / 30 天或自定义范围。
 
 > 参考官方文档：[第一个插件](https://deepseek-harness.github.io/deepseek-harness/develop/basic/)
 > 首次启用会扫描本地历史会话（进度见页面提示），扫描完成后数字不再频繁变化。
