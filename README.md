@@ -7,9 +7,11 @@ DeepSeek Harness 用量统计插件（山海紫穹系列）。
 ![使用统计示例](assets/screenshot.png)
 
 - **总量汇总徽章** — 总花费 Token、缓存命中率、总使用次数、模型用量、连续使用天数；默认进入页面即为「当天」视图
-- **每日走势柱状图** — 按天展示输入 / 缓存命中 / 缓存写入 / 输出四段 Token 走势（可切 当天 / 1 / 7 / 30 天）
+- **每日走势折线图** — 按天展示输入 / 缓存命中 / 缓存写入 / 输出四段 Token 走势（可切 当天 / 1 / 7 / 30 天）
 - **GitHub 风格热力图** — 近一年每日活动热度，悬停查看明细
 - **用量明细表** — 支持「按供应商 / 按模型」两个标签页切换，查看各供应商或各模型的 Token 用量、消息数、缓存命中
+
+![使用统计完整界面](assets/screenshot-full.png)
 
 ## 特性
 
@@ -30,7 +32,7 @@ dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
 
 > 锁定版本安装（更安全，推荐生产环境）：
 > ```bash
-> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.0
+> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.1
 > ```
 
 更新 / 卸载：
@@ -66,7 +68,7 @@ Host 半（Cordis 插件，lib/index.js）
 
 Client 半（浏览器 bundle，lib/client.js）
   React.createElement 渲染（timer 注入，2s/15s 轮询）
-  → 徽章 / 柱状图 / 热力图 / 模型分组表
+  → 徽章 / 折线图 / 热力图 / 用量明细表
 ```
 
 按 provider × model 新增 `perModel` 聚合维度，聚焦纯用量统计。
@@ -78,7 +80,7 @@ Client 半（浏览器 bundle，lib/client.js）
 | 总花费 Token | `input + output + cacheRead + cacheWrite + reasoning`（展示口径，缓存命中与计费价不同） |
 | 缓存命中率 | `cacheRead / (input + cacheRead) × 100%` |
 | 回合数 | `turn/end` 事件计数（含子代理会话） |
-| 按天窗口 | 最近 53 周；更早历史只进全量 totals/按工作区/按模型，不进热力图与按天柱状图 |
+| 按天窗口 | 最近 53 周；更早历史只进全量 totals/按工作区/按模型，不进热力图与按天折线图 |
 
 ## 目录
 
