@@ -120,6 +120,7 @@ check('workspaces 数量 = 2', data.workspaces.length === 2)
 check('totals.turns = 3', data.totals.turns === 3, 'got ' + data.totals.turns)
 const ti = data.totals
 check('totals.input = 1649', ti.input === 1649, 'got ' + ti.input) // 650 + 窗口外 999（全量包含窗口外，符合设计）
+check('totals.msgs = 5（5 条带 model 的消息，含窗口外）', ti.msgs === 5, 'got ' + ti.msgs)
 check('totals.cacheRead = 1350', ti.cacheRead === 1350, 'got ' + ti.cacheRead)
 check('totals.cacheWrite = 215', ti.cacheWrite === 215, 'got ' + ti.cacheWrite)
 check('totals.reasoning = 60', ti.reasoning === 60, 'got ' + ti.reasoning)
@@ -150,6 +151,8 @@ check('byDay 不含 400 天前', data.byDay.every((d) => d.date >= data.byDay[0]
 check('byDay 数量 ≥ 3 且不含 old 事件', !data.byDay.some((d) => d.tokens.input === 999))
 const totalOfDays = data.byDay.reduce((s, d) => s + d.tokens.input, 0)
 check('byDay 输入合计 = 650（不含窗口外）', totalOfDays === 650, 'got ' + totalOfDays)
+const day0 = data.byDay.find((d) => d.date === data.byDay[data.byDay.length - 1].date)
+if (day0) check('当天 day.msgs = 2（sA+sB 各 1 条 deepseek-chat）', day0.msgs === 2, 'got ' + day0.msgs)
 
 console.log('live 事件折叠:')
 const liveSession = { id: 'sA', header: { cwd: 'C:\\work\\proj-a' } }
@@ -159,6 +162,7 @@ await new Promise((r) => setTimeout(r, 20))
 const data2 = callRoute()
 check('live 事件后 totals.input = 1656（1649+7）', data2.totals.input === 1656, 'got ' + data2.totals.input)
 check('live 事件后 deepseek-chat msgs = 3', data2.perModel.find((m) => m.model === 'deepseek-chat').msgs === 3)
+check('live 事件后 totals.msgs = 6（5+1）', data2.totals.msgs === 6, 'got ' + data2.totals.msgs)
 
 if (typeof dispose === 'function') dispose()
 console.log(failures === 0 ? '\n🎉 全部通过' : '\n💥 ' + failures + ' 项失败')
