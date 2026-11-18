@@ -22,6 +22,29 @@ DeepSeek Harness 用量统计插件（山海紫穹系列）。
 - 支持子代理会话（随事件自然计入）
 - 深浅色主题自适应（使用 DSW 设计变量）
 
+## 兼容性
+
+| 项目 | 范围 | 说明 |
+|---|---|---|
+| DSH | `>=0.2.0 <0.3.0`（`package.json` `engines.dsh`） | 验证基线：DSH 0.2.2-rc.3 |
+| Node.js | `>=24.9.0`（`package.json` `engines.node`） | 与 DSH 运行时要求一致 |
+| 第三方运行依赖 | 无 | 只用 DSH 注入的 `sessionQuery` / `workspaceRegistry` / `timer`，以及可选的 `webServer` |
+
+`engines.dsh` 由 DSH 安装器与 profile 启动检查：运行中的 DSH 不满足该范围时，安装或启动会被拒绝。
+
+## 权限与边界
+
+| 能力 | 声明 | 具体行为 |
+|---|---|---|
+| 文件 | 不直接读写 | Host 半不调用 `fs`；会话数据全部通过 DSH 注入的 `sessionQuery` 读取。插件不写入任何文件 |
+| 网络 | 仅同源本地 API | Host 半在 DSH 的 `webServer` 上注册 `GET /api/shanhai-stats`；Client 半用同源 `fetch` 读取该接口。不访问任何外部域名或第三方服务 |
+| 命令 | 无 | 不执行子进程或 shell 命令 |
+| 凭据 | 无 | 不读取 `process.env`、凭据文件或模型 API Key |
+| 外部服务 | 无 | 不需要任何外部 API、数据库或云服务 |
+| 失败边界 | 只读降级 | 会话日志读取失败只计入 `failed`，不阻塞 DSH；数据缺失时页面显示空统计，不影响宿主其他功能 |
+
+插件激活后首次会扫描已有会话日志；扫描期间页面显示进度，扫描完成后数字趋于稳定。
+
 ## 安装
 
 ### 方式一：插件命令（推荐）
@@ -32,7 +55,7 @@ dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
 
 > 锁定版本安装（更安全，推荐生产环境）：
 > ```bash
-> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.1
+> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.2
 > ```
 
 更新 / 卸载：
@@ -55,6 +78,10 @@ dsh plugin --profile web remove dsh-shanhai-stats
 
 > 参考官方文档：[第一个插件](https://deepseek-harness.github.io/deepseek-harness/develop/basic/)
 > 首次启用会扫描本地历史会话（进度见页面提示），扫描完成后数字不再频繁变化。
+
+## 上架复核
+
+DSH STORE 的自动检查与复核材料见 [STORE_REVIEW.md](STORE_REVIEW.md)：其中记录能力声明、依赖、权限边界，以及一次性 Profile 的安装 / 启动 / 卸载验证结果。
 
 ## 架构
 
@@ -88,11 +115,12 @@ Client 半（浏览器 bundle，lib/client.js）
 
 ```
 dsh-shanhai-stats/
-  package.json        # 插件元信息与打包配置
+  package.json        # 插件元信息、engines 兼容范围与打包配置
   cordis.patch.yml    # 插件注册补丁
   lib/index.js        # Host 半：聚合 + HTTP 接口
   lib/client.js       # Client 半：CC Switch 风格 UI
   test/               # host 端到端 + client smoke 测试
+  STORE_REVIEW.md     # DSH STORE 上架复核材料
 ```
 
 ## 开发
