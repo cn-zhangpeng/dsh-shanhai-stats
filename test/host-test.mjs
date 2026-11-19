@@ -146,11 +146,10 @@ const gpt = data.perModel.find((m) => m.provider === 'openai' && m.model === 'gp
 check('gpt-4o 存在', gpt !== undefined)
 if (gpt) check('gpt-4o input = 300', gpt.input === 300, 'got ' + gpt.input)
 
-console.log('按天窗口裁剪:')
-check('byDay 不含 400 天前', data.byDay.every((d) => d.date >= data.byDay[0].date))
-check('byDay 数量 ≥ 3 且不含 old 事件', !data.byDay.some((d) => d.tokens.input === 999))
+console.log('按天全历史保留:')
+check('byDay 含 400 天前的 old 事件（cutoff 已移除）', data.byDay.some((d) => d.tokens.input === 999))
 const totalOfDays = data.byDay.reduce((s, d) => s + d.tokens.input, 0)
-check('byDay 输入合计 = 650（不含窗口外）', totalOfDays === 650, 'got ' + totalOfDays)
+check('byDay 输入合计 = 1649（含窗口外 old 999）', totalOfDays === 1649, 'got ' + totalOfDays)
 const day0 = data.byDay.find((d) => d.date === data.byDay[data.byDay.length - 1].date)
 if (day0) check('当天 day.msgs = 2（sA+sB 各 1 条 deepseek-chat）', day0.msgs === 2, 'got ' + day0.msgs)
 
