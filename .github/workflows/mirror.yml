@@ -1,0 +1,17 @@
+name: Mirror to Gitee
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 18 * * *'
+      timezone: Asia/Shanghai
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wearerequired/git-mirror-action@v1
+        with:
+          source-repo: https://github.com/${{ github.repository }}.git
+          destination-repo: https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_TOKEN }}@gitee.com/${{ secrets.GITEE_REPO }}.git
