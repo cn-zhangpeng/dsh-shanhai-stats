@@ -4,7 +4,7 @@
 
 This document answers the three findings from the DSH STORE automation (issue #768): explicit compatibility declarations, documented permissions/boundaries, and disposable-Profile install/start/uninstall evidence.
 
-- 插件版本 / Plugin version: **1.1.2**
+- 插件版本 / Plugin version: **1.1.5**（复核实测证据采集于 1.1.2；1.1.3–1.1.5 仅改客户端渲染与按天窗口口径，Host 权限 / 路由无新增，见 §3 说明）
 - 复核日期 / Date: **2026-11-18**
 - 仓库 / Repository: <https://github.com/cn-zhangpeng/dsh-shanhai-stats>
 
@@ -149,7 +149,7 @@ export DSH_HOME="$(mktemp -d)"
 dsh --profile storecheck --from-default-profile web
 
 # 3. Install the plugin (local checkout or GitHub ref)
-dsh plugin --profile storecheck add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.2
+dsh plugin --profile storecheck add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.5
 
 # 4. Start and open the printed URL
 dsh --profile storecheck --port 31999

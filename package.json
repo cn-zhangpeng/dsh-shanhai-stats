@@ -36,7 +36,7 @@
     "STORE_REVIEW.md"
   ],
   "scripts": {
-    "test": "node test/host-test.mjs && node test/client-smoke.mjs"
+    "test": "node test/host-test.mjs && node test/new-workspace-test.mjs && node test/client-smoke.mjs"
   },
   "keywords": [
     "deepseek-harness",

@@ -55,7 +55,7 @@ dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
 
 > 锁定版本安装（更安全，推荐生产环境）：
 > ```bash
-> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.2
+> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.5
 > ```
 
 更新 / 卸载：
