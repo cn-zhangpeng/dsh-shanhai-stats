@@ -47,16 +47,24 @@ DeepSeek Harness 用量统计插件（山海紫穹系列）。
 
 ## 安装
 
-### 方式一：插件命令（推荐）
+### 方式一：npm 安装（推荐）
+
+已发布至 npm：[dsh-shanhai-stats](https://www.npmjs.com/package/dsh-shanhai-stats)
 
 ```bash
-dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
+dsh plugin --profile web add dsh-shanhai-stats
 ```
 
 > 锁定版本安装（更安全，推荐生产环境）：
 > ```bash
-> dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats#v1.1.5
+> dsh plugin --profile web add dsh-shanhai-stats@1.1.5
 > ```
+
+也可以从 GitHub 安装尚未发布到 npm 的分支 / 提交：
+
+```bash
+dsh plugin --profile web add github:cn-zhangpeng/dsh-shanhai-stats
+```
 
 更新 / 卸载：
 
